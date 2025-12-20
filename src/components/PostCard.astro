@@ -1,0 +1,118 @@
+---
+import { Image } from "astro:assets";
+import FormattedDate from "./FormattedDate.astro";
+
+export interface Props {
+    title: string;
+    href?: string;
+    image?: any;
+    imageAlt?: string;
+    description?: string;
+    date?: Date | string | null;
+    cta?: string;
+    target?: string;
+    rel?: string;
+    variant?: "post" | "project";
+    width?: number;
+    height?: number;
+    class?: string;
+}
+
+const {
+    title,
+    href,
+    image,
+    imageAlt,
+    description,
+    date,
+    cta,
+    target,
+    rel,
+    variant = "post",
+    width = 720,
+    height = 360,
+} = Astro.props as Props;
+
+// Resolve internal hrefs against `site + base` so local links include `base` prefix
+const siteWithBase = new URL(import.meta.env.BASE_URL || '/', new URL(String(Astro.site)).origin).toString();
+const resolvedHref = typeof href === 'string' && !isExternal(href)
+    ? new URL(href.replace(/^\/+/, ''), siteWithBase).pathname
+    : href; 
+
+/**
+ * Normalized pub date if provided
+ */
+const pubDate = date ? (date instanceof Date ? date : new Date(date)) : null;
+
+function isExternal(h: string | undefined) {
+    return typeof h === "string" && /^https?:\/\//i.test(h);
+}
+
+const finalTarget = target ?? (href && isExternal(href) ? "_blank" : undefined);
+const finalRel =
+    rel ?? (href && isExternal(href) ? "noopener noreferrer" : undefined);
+---
+
+<article
+    class="group relative grid grid-cols-1 gap-4 lg:grid-cols-3 lg:items-start"
+>
+    {
+        image && (
+            <Image
+                src={image}
+                alt={imageAlt ?? title}
+                width={width}
+                height={height}
+                class="lg:col-span-full aspect-12/7 object-cover object-top w-full"
+            />
+        )
+    }
+
+    <div class="lg:col-span-2">
+        <h3 class="text-sm 2xl:text-xl text-base-900 font-bold uppercase">
+            {
+                href ? (
+                    <a href={resolvedHref} target={finalTarget} rel={finalRel}>
+                        <span class="absolute -inset-x-4 -inset-y-6 z-20 sm:-inset-x-6 sm:rounded-2xl" />
+                        <span class="relative z-10">{title}</span>
+                    </a>
+                ) : (
+                    title
+                )
+            }
+        </h3>
+
+        {
+            description && (
+                <p class="text-xs 2xl:text-lg mt-1 text-base-600">
+                    {description}
+                </p>
+            )
+        }
+    </div>
+
+    {
+        variant === "post" && pubDate && (
+            <p class="text-xs 2xl:text-lg text-base-600 lg:ml-auto">
+                <time datetime={pubDate.toISOString()}>
+                    <FormattedDate date={pubDate} />
+                </time>
+            </p>
+        )
+    }
+
+    {
+        variant === "project" && cta && href && (
+            <p class="text-xs 2xl:text-lg relative z-10 flex items-center text-sm text-base-600 lg:ml-auto">
+                <a
+                    href={resolvedHref}
+                    target={finalTarget}
+                    rel={finalRel}
+                    class="text-xs 2xl:text-lg text-base-900 hover:text-base-500 font-bold uppercase"
+                >
+                    {cta}
+                </a>
+            </p>
+        )
+    }
+</article>

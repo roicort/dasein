@@ -1,0 +1,100 @@
+---
+/**
+ * SectionLinks.astro
+ *
+ * Reusable section component for lists of links (e.g., the "Socials" section).
+ *
+ * Props:
+ *  - heading: string
+ *  - links: Array<{
+ *      label: string;
+ *      href: string;
+ *      external?: boolean; // if true, forces target="_blank" and rel="noopener noreferrer"
+ *      target?: string; // overrides default target behavior
+ *      rel?: string; // overrides default rel behavior
+ *      ariaLabel?: string;
+ *    }>
+ *
+ * Behavior:
+ *  - If `external` is true or the href looks like an external URL (starts with http(s)://),
+ *    the link will get `target="_blank"` and `rel="noopener noreferrer"` by default.
+ *
+ * Slot:
+ *  - default: optional extra content to render under the links (e.g. CTA)
+ *
+ * Example:
+ *  <SectionLinks
+ *    heading="Socials"
+ *    links={[
+ *      { label: "X", href: "https://x.com/..." },
+ *      { label: "GitHub", href: "https://github.com/..." },
+ *    ]}
+ *  />
+ */
+interface Link {
+    label: string;
+    href: string;
+    external?: boolean;
+    target?: string;
+    rel?: string;
+    ariaLabel?: string;
+}
+
+export interface Props {
+    heading: string;
+    links: Link[];
+}
+
+const heading: string = Astro.props.heading;
+const links: Link[] = Astro.props.links ?? [];
+
+function looksExternal(href: string) {
+    // A simple heuristic for external URLs
+    return /^https?:\/\//i.test(href);
+}
+---
+
+<section>
+    <div class="max-w-[90rem] mx-auto px-8">
+        <div
+            class="grid grid-cols-1 gap-4 md:grid-cols-3 border-b py-8 border-base-200"
+        >
+            <div class="lg:sticky lg:top-24 lg:z-40 self-start">
+                <h2
+                    class="text-sm 2xl:text-xl text-base-900 font-bold uppercase"
+                >
+                    {heading}
+                </h2>
+            </div>
+
+            <div class="flex flex-col gap-2 lg:col-span-2">
+                {
+                    links.map((link) => {
+                        const external =
+                            link.external ?? looksExternal(link.href);
+                        const target =
+                            link.target ?? (external ? "_blank" : undefined);
+                        const rel =
+                            link.rel ??
+                            (external ? "noopener noreferrer" : undefined);
+
+                        return (
+                            <a
+                                class="text-xs 2xl:text-lg text-base-900 hover:text-base-500 font-bold uppercase"
+                                href={link.href}
+                                target={target}
+                                rel={rel}
+                                aria-label={link.ariaLabel}
+                            >
+                                {link.label}
+                            </a>
+                        );
+                    })
+                }
+
+                <!-- Optional extra content (slot) -->
+                <slot />
+            </div>
+        </div>
+    </div>
+</section>

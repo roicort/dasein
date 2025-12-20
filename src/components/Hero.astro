@@ -1,0 +1,61 @@
+---
+import { SITE_TITLE } from "../consts";
+---
+
+<section>
+    <div
+        class="max-w-[90rem] mx-auto px-8 pt-8 flex flex-col justify-between h-dvh"
+    >
+        <!-- Render the default slot content -->
+        <slot />
+
+        <div
+            class="flex flex-col lg:flex-row lg:justify-between items-start gap-8"
+        >
+            <div
+                class="hero-letters text-[10vw] md:text-[10rem] lg:text-[10rem] leading-[0.85] font-extrabold text-base-900 uppercase"
+                aria-hidden="true"
+            >
+                {SITE_TITLE}
+            </div>
+        </div>
+
+        <div
+            class="grid grid-cols-1 gap-4 md:grid-cols-3 border-b pb-8 border-base-200"
+        >
+            <div>
+                <h1
+                    class="text-xs 2xl:text-lg text-base-900 font-bold uppercase"
+                >
+                    Philosopher
+                </h1>
+            </div>
+            <div class="lg:col-span-2">
+                <p class="text-sm 2xl:text-xl text-base-600">
+                    In German, Dasein is the vernacular term for "existence". It
+                    is derived from da-sein, which literally means "being-there"
+                    or "there-being". In a philosophical context, it was first
+                    used by Leibniz and Wolff in the 17th century, as well as by
+                    Kant and Hegel in the 18th and 19th; however, Heidegger's
+                    later association of the word with human existence was
+                    uncommon and not of special philosophical significance
+                    during this period.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .h-dvh {
+        min-height: 100dvh;
+    }
+
+    h1 {
+        margin: 0;
+    }
+
+    .grid {
+        max-width: 100%;
+    }
+</style>

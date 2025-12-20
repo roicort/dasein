@@ -1,0 +1,52 @@
+---
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import PostCard from "../components/PostCard.astro";
+import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
+
+const projects = ((await getCollection("projects" as any)) as any[]).sort(
+    (a, b) => a.data.title.localeCompare(b.data.title),
+);
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <BaseHead
+            title={`Projects • ${SITE_TITLE}`}
+            description={SITE_DESCRIPTION}
+        />
+        <style><!-- styles moved to PostCard component --></style>
+    </head>
+    <body>
+        <Header />
+        <main>
+            <section>
+                <div class="max-w-[90rem] mx-auto pt-8 px-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-y-12 gap-x-8">
+                        {
+                            projects.map((project) => {
+                                const p = project.data || {};
+                                return (
+                                    <PostCard
+                                        title={p.title}
+                                        href={p.link}
+                                        image={p.image}
+                                        imageAlt={p.title}
+                                        description={p.description}
+                                        variant="project"
+                                        cta="View project →"
+                                    />
+                                );
+                            })
+                        }
+                    </div>
+                </div>
+            </section>
+        </main>
+        <Footer />
+    </body>
+</html>

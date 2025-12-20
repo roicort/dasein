@@ -1,10 +1,6 @@
-# Astro Starter Kit: Blog
+# Dasein
 
-```sh
-bun create astro@latest -- --template blog
-```
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+This is a personal website built with Astro from the Astro Starter Kit: Blog.
 
 Features:
 
@@ -59,4 +55,4 @@ Check out [our documentation](https://docs.astro.build) or jump into our [Discor
 
 ## Credit
 
-This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
+This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/), and inpsired by the old [prima persona](https://lexingtonthemes.com/templates/primapersona)

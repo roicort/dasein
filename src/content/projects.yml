@@ -1,0 +1,32 @@
+# Projects collection - each object must include a unique `id` field
+# Place this file at `src/data/projects.yml` and update entries as needed.
+# Fields:
+# - id: unique string identifier (required)
+# - title: project title (required)
+# - description: short description (required)
+# - image: optional path to an image (relative to this file, e.g. ../assets/...)
+# - link: a full URL to the project (required)
+
+- id: "project-dasein"
+  title: "Dasein"
+  description: "A sample project showcasing the Dasein site features and architecture."
+  image: "../assets/blog-placeholder-1.jpg"
+  link: "https://example.com/dasein"
+
+- id: "project-explorer"
+  title: "Explorer"
+  description: "An exploration tool example project focusing on discoverability and metrics."
+  image: "../assets/blog-placeholder-2.jpg"
+  link: "https://example.com/explorer"
+
+- id: "project-otter"
+  title: "Otter UI"
+  description: "A small UI library used across multiple projects to maintain a consistent design."
+  image: "../assets/blog-placeholder-3.jpg"
+  link: "https://example.com/otter-ui"
+
+- id: "project-lumen"
+  title: "Lumen"
+  description: "A lightweight design system for rapid prototyping and consistent layouts."
+  image: "../assets/blog-placeholder-4.jpg"
+  link: "https://example.com/lumen"

@@ -1,155 +1,251 @@
-/*
-  The CSS in this style tag is based off of Bear Blog's default CSS.
-  https://github.com/HermanMartinus/bearblog/blob/297026a877bc2ab2b3bdfbd6b9f7961c350917dd/templates/styles/blog/default.css
-  License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
- */
+@import "tailwindcss";
 
+@theme {
+    --section-padding: clamp(2rem, 7vw, 6rem);
+    --section-max-width: 1000px;
+    --shadow-card: 0 12px 35px rgba(0, 0, 0, 0.08);
+}
+
+/* Color Palette */
 :root {
-	--accent: #2337ff;
-	--accent-dark: #000d8a;
-	--black: 15, 18, 25;
-	--gray: 96, 115, 159;
-	--gray-light: 229, 233, 240;
-	--gray-dark: 34, 41, 57;
-	--gray-gradient: rgba(var(--gray-light), 50%), #fff;
-	--box-shadow:
-		0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%), 0 16px 32px
-		rgba(var(--gray), 33%);
-}
-@font-face {
-	font-family: "Atkinson";
-	src: url("/fonts/atkinson-regular.woff") format("woff");
-	font-weight: 400;
-	font-style: normal;
-	font-display: swap;
-}
-@font-face {
-	font-family: "Atkinson";
-	src: url("/fonts/atkinson-bold.woff") format("woff");
-	font-weight: 700;
-	font-style: normal;
-	font-display: swap;
-}
-body {
-	font-family: "Atkinson", sans-serif;
-	margin: 0;
-	padding: 0;
-	text-align: left;
-	background: linear-gradient(var(--gray-gradient)) no-repeat;
-	background-size: 100% 600px;
-	word-wrap: break-word;
-	overflow-wrap: break-word;
-	color: rgb(var(--gray-dark));
-	font-size: 20px;
-	line-height: 1.7;
-}
-main {
-	width: 720px;
-	max-width: calc(100% - 2em);
-	margin: auto;
-	padding: 3em 1em;
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-	margin: 0 0 0.5rem 0;
-	color: rgb(var(--black));
-	line-height: 1.2;
-}
-h1 {
-	font-size: 3.052em;
-}
-h2 {
-	font-size: 2.441em;
-}
-h3 {
-	font-size: 1.953em;
-}
-h4 {
-	font-size: 1.563em;
-}
-h5 {
-	font-size: 1.25em;
-}
-strong,
-b {
-	font-weight: 700;
-}
-a {
-	color: var(--accent);
-}
-a:hover {
-	color: var(--accent);
-}
-p {
-	margin-bottom: 1em;
-}
-.prose p {
-	margin-bottom: 2em;
-}
-textarea {
-	width: 100%;
-	font-size: 16px;
-}
-input {
-	font-size: 16px;
-}
-table {
-	width: 100%;
-}
-img {
-	max-width: 100%;
-	height: auto;
-	border-radius: 8px;
-}
-code {
-	padding: 2px 5px;
-	background-color: rgb(var(--gray-light));
-	border-radius: 2px;
-}
-pre {
-	padding: 1.5em;
-	border-radius: 8px;
-}
-pre > code {
-	all: unset;
-}
-blockquote {
-	border-left: 4px solid var(--accent);
-	padding: 0 0 0 20px;
-	margin: 0;
-	font-size: 1.333em;
-}
-hr {
-	border: none;
-	border-top: 1px solid rgb(var(--gray-light));
-}
-@media (max-width: 720px) {
-	body {
-		font-size: 18px;
-	}
-	main {
-		padding: 1em;
-	}
+    color-scheme: light;
+    background-color: #fff;
 }
 
-.sr-only {
-	border: 0;
-	padding: 0;
-	margin: 0;
-	position: absolute !important;
-	height: 1px;
-	width: 1px;
-	overflow: hidden;
-	/* IE6, IE7 - a 0 height clip, off to the bottom right of the visible 1px box */
-	clip: rect(1px 1px 1px 1px);
-	/* maybe deprecated but we need to support legacy browsers */
-	clip: rect(1px, 1px, 1px, 1px);
-	/* modern browsers, clip-path works inwards from each corner */
-	clip-path: inset(50%);
-	/* added line to stop words getting smushed together (as they go onto separate lines and some screen readers do not understand line feeds as a space */
-	white-space: nowrap;
+@layer base {
+    *,
+    *::before,
+    *::after {
+        @apply antialiased;
+    }
+
+    body {
+        font-family: var(--font-sans);
+        background-color: var(--color-background);
+        color: var(--color-text);
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: var(--font-display);
+    }
+}
+
+@layer components {
+    .section {
+        min-height: 100vh;
+        padding: var(--section-padding);
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+    }
+
+    .section__inner {
+        width: 100%;
+        max-width: var(--section-max-width);
+        margin: 0 auto;
+        opacity: 0;
+        transform: translateY(24px);
+        transition:
+            opacity 0.6s cubic-bezier(0.2, 0.9, 0.2, 1),
+            transform 0.6s cubic-bezier(0.2, 0.9, 0.2, 1);
+    }
+
+    .section.is-visible .section__inner {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .section__title {
+        margin: 0 0 1rem 0;
+        font-size: clamp(1.25rem, 1.5vw + 0.5rem, 2rem);
+        text-align: center;
+    }
+
+    .section__content {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    .section.alt {
+        background: linear-gradient(
+            180deg,
+            rgba(0, 0, 0, 0.02),
+            rgba(0, 0, 0, 0)
+        );
+    }
+
+    .card {
+        border: 1px solid
+            color-mix(in srgb, var(--color-accent), transparent 40%);
+        box-shadow: var(--shadow-card);
+        backdrop-filter: blur(6px);
+        transition:
+            box-shadow 0.3s ease,
+            transform 0.3s ease,
+            border-color 0.3s ease;
+    }
+
+    .card:is(:hover, :focus-within) {
+        transform: translateY(-4px);
+        box-shadow: 0 32px 70px
+            color-mix(in srgb, var(--color-primary), transparent 65%);
+    }
+
+    .card:is(:hover, :focus-within) .card__glow {
+        opacity: 1;
+    }
+
+    .card__avatar {
+        box-shadow: 0 18px 35px
+            color-mix(in srgb, var(--color-primary), transparent 75%);
+        border: 2px solid color-mix(in srgb, var(--color-background), white 30%);
+    }
+
+    .card__title {
+        color: var(--color-primary);
+    }
+
+    .card__subtitle {
+        color: var(--color-accent);
+        letter-spacing: 0.2em;
+    }
+
+    .card__body,
+    .card__footer {
+        color: color-mix(
+            in srgb,
+            var(--color-primary) 70%,
+            var(--color-text-light) 30%
+        );
+    }
+
+    /* Markdown (prose) typographic styles */
+    .prose {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 1rem;
+        color: var(--color-text);
+        font-size: 1rem;
+        line-height: 1.75;
+    }
+
+    .prose p {
+        margin: 1rem 0;
+        color: inherit;
+        line-height: 1.8;
+    }
+
+    .prose h1,
+    .prose h2,
+    .prose h3,
+    .prose h4,
+    .prose h5,
+    .prose h6 {
+        margin: 1.25rem 0 0.5rem;
+        font-weight: 700;
+        color: inherit;
+    }
+
+    .prose h1 {
+        font-size: 1.75rem;
+    }
+    .prose h2 {
+        font-size: 1.5rem;
+    }
+    .prose h3 {
+        font-size: 1.25rem;
+    }
+
+    .prose a {
+        color: var(--color-accent);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+    }
+
+    .prose img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 1rem 0;
+        border-radius: 8px;
+    }
+
+    .prose blockquote {
+        margin: 1rem 0;
+        padding: 0.75rem 1rem;
+        border-left: 4px solid
+            color-mix(in srgb, var(--color-accent), transparent 60%);
+        background: color-mix(in srgb, var(--color-accent), transparent 96%);
+        color: color-mix(in srgb, var(--color-primary), transparent 25%);
+        border-radius: 6px;
+    }
+
+    .prose hr {
+        height: 1px;
+        border: none;
+        background: color-mix(in srgb, var(--color-primary), transparent 85%);
+        margin: 2rem 0;
+    }
+
+    .prose ul,
+    .prose ol {
+        margin: 1rem 0;
+        padding-left: 1.25rem;
+    }
+
+    .prose li {
+        margin: 0.35rem 0;
+    }
+
+    .prose code {
+        background: color-mix(in srgb, var(--color-accent), transparent 95%);
+        padding: 0.12rem 0.28rem;
+        border-radius: 6px;
+        font-family:
+            ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono",
+            monospace;
+        font-size: 0.95em;
+    }
+
+    .prose pre {
+        margin: 1rem 0;
+        overflow: auto;
+        padding: 1rem;
+        border-radius: 8px;
+        background: color-mix(in srgb, var(--color-background), black 4%);
+        border: 1px solid
+            color-mix(in srgb, var(--color-primary), transparent 90%);
+    }
+
+    .prose pre code {
+        background: transparent;
+        padding: 0;
+        color: inherit;
+        font-family:
+            ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono",
+            monospace;
+    }
+
+    .prose table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1rem 0;
+        overflow: auto;
+        display: block;
+    }
+
+    .prose th,
+    .prose td {
+        padding: 0.5rem 0.75rem;
+        border: 1px solid
+            color-mix(in srgb, var(--color-primary), transparent 85%);
+        text-align: left;
+    }
 }
