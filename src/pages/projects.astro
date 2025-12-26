@@ -1,6 +1,5 @@
 ---
 import { getCollection } from "astro:content";
-import type { CollectionEntry } from "astro:content";
 import BaseHead from "../components/BaseHead.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
@@ -21,25 +20,27 @@ const projects = ((await getCollection("projects" as any)) as any[]).sort(
         />
         <style><!-- styles moved to PostCard component --></style>
     </head>
-    <body>
+    <body class="min-h-screen flex flex-col">
         <Header />
-        <main>
-            <section>
-                <div class="max-w-[90rem] mx-auto pt-8 px-8">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-y-12 gap-x-8">
+        <main class="flex-1 flex">
+            <section class="flex flex-1 items-center">
+                <div class="max-w-[90rem] mx-auto w-full flex-1 min-h-full py-12 px-8 flex flex-col items-center justify-center">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-y-12 gap-x-8 w-full place-items-center">
                         {
                             projects.map((project) => {
                                 const p = project.data || {};
                                 return (
-                                    <PostCard
-                                        title={p.title}
-                                        href={p.link}
-                                        image={p.image}
-                                        imageAlt={p.title}
-                                        description={p.description}
-                                        variant="project"
-                                        cta="View project →"
-                                    />
+                                    <div class="w-full max-w-lg mx-auto">
+                                        <PostCard
+                                            title={p.title}
+                                            href={p.link}
+                                            image={p.image}
+                                            imageAlt={p.title}
+                                            description={p.description}
+                                            variant="project"
+                                            cta="View project →"
+                                        />
+                                    </div>
                                 );
                             })
                         }

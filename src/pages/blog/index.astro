@@ -17,12 +17,12 @@ const posts = (await getCollection("blog")).sort(
         <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
         <style><!-- styles moved to PostCard component --></style>
     </head>
-    <body>
+    <body class="min-h-screen flex flex-col">
         <Header />
-        <main>
-            <section>
-                <div class="max-w-[90rem] mx-auto pt-8 px-8">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-y-12 gap-x-8">
+        <main class="flex-1 flex">
+            <section class="flex flex-1">
+                <div class="max-w-[90rem] mx-auto w-full flex-1 min-h-full py-12 px-8 flex flex-col justify-center">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-y-12 gap-x-8 w-full">
                         {
                             posts.map((post) => (
                                 <PostCard

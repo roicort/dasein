@@ -55,8 +55,13 @@ const {
     viewAllLabel = "View all projects",
 } = Astro.props as Props;
 
-const siteWithBase = new URL(import.meta.env.BASE_URL || '/', new URL(String(Astro.site)).origin).toString();
-const resolvedViewAllHref = viewAllHref ? new URL(viewAllHref.replace(/^\/+/, ''), siteWithBase).pathname : undefined;
+const siteWithBase = new URL(
+    import.meta.env.BASE_URL || "/",
+    new URL(String(Astro.site)).origin,
+).toString();
+const resolvedViewAllHref = viewAllHref
+    ? new URL(viewAllHref.replace(/^\/+/, ""), siteWithBase).pathname
+    : undefined;
 
 function getProjectData(item: RawProject) {
     return item && (item as any).data ? (item as any).data : item;
@@ -72,7 +77,7 @@ const visibleItems = typeof limit === "number" ? items.slice(0, limit) : items;
 <section>
     <div class="max-w-[90rem] mx-auto pt-8 px-8">
         <div
-            class="grid grid-cols-1 gap-y-24 lg:gap-y-48 md:grid-cols-3 border-b py-24 border-base-200"
+            class="grid grid-cols-1 gap-y-24 md:grid-cols-3 border-b py-24 border-base-200"
         >
             <div class="lg:sticky lg:top-24 lg:z-40 self-start">
                 <h2
