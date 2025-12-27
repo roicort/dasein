@@ -1,5 +1,9 @@
 ---
 import HeaderLink from "./HeaderLink.astro";
+const baseUrl =
+    !import.meta.env.BASE_URL || import.meta.env.BASE_URL === "/"
+        ? ""
+        : import.meta.env.BASE_URL;
 ---
 
 <header>
@@ -9,19 +13,19 @@ import HeaderLink from "./HeaderLink.astro";
         >
             <HeaderLink
                 class="text-xs 2xl:text-lg text-base-900 hover:text-base-500 font-bold uppercase"
-                href="/"
+                href={baseUrl + "/"}
             >
                 home
             </HeaderLink>
             <HeaderLink
                 class="text-xs 2xl:text-lg text-base-900 hover:text-base-500 font-bold uppercase"
-                href="/blog"
+                href={baseUrl + "/blog"}
             >
                 blog
             </HeaderLink>
             <HeaderLink
                 class="text-xs 2xl:text-lg text-base-900 hover:text-base-500 font-bold uppercase"
-                href="/projects"
+                href={baseUrl + "/projects"}
             >
                 projects
             </HeaderLink>

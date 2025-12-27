@@ -1,19 +1,21 @@
 ---
 // Import the global.css file here so that it is included on
 // all pages through the use of the <BaseHead /> component.
-import '../styles/global.css';
-import type { ImageMetadata } from 'astro';
-import FallbackImage from '../assets/blog-placeholder-1.jpg';
-import { SITE_TITLE } from '../consts';
+import "../styles/global.css";
+import type { ImageMetadata } from "astro";
+import FallbackImage from "../assets/blog-placeholder-1.jpg";
+import { SITE_TITLE } from "../consts";
 
 interface Props {
-	title: string;
-	description: string;
-	image?: ImageMetadata;
+    title: string;
+    description: string;
+    image?: ImageMetadata;
 }
 
-const siteWithBase = new URL(import.meta.env.BASE_URL || '/', new URL(String(Astro.site)).origin).toString();
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const siteWithBase = new URL(
+    import.meta.env.BASE_URL || "/",
+    new URL(String(Astro.site)).origin,
+).toString();
 
 const { title, description, image = FallbackImage } = Astro.props;
 ---
@@ -22,22 +24,38 @@ const { title, description, image = FallbackImage } = Astro.props;
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <!-- Use `Astro.site` to build correct absolute URLs when the site lives under a subpath -->
-<link rel="icon" type="image/svg+xml" href={new URL('favicon.svg', siteWithBase)} />
-<link rel="sitemap" href={new URL('sitemap-index.xml', siteWithBase)} />
 <link
-	rel="alternate"
-	type="application/rss+xml"
-	title={SITE_TITLE}
-	href={new URL('rss.xml', siteWithBase)}
+    rel="icon"
+    type="image/svg+xml"
+    href={new URL("favicon.svg", siteWithBase)}
+/>
+<link rel="sitemap" href={new URL("sitemap-index.xml", siteWithBase)} />
+<link
+    rel="alternate"
+    type="application/rss+xml"
+    title={SITE_TITLE}
+    href={new URL("rss.xml", siteWithBase)}
 />
 <meta name="generator" content={Astro.generator} />
 
 <!-- Font preloads -->
-<link rel="preload" href={new URL('fonts/atkinson-regular.woff', siteWithBase)} as="font" type="font/woff" crossorigin />
-<link rel="preload" href={new URL('fonts/atkinson-bold.woff', siteWithBase)} as="font" type="font/woff" crossorigin />
+<link
+    rel="preload"
+    href={new URL("fonts/atkinson-regular.woff", siteWithBase)}
+    as="font"
+    type="font/woff"
+    crossorigin
+/>
+<link
+    rel="preload"
+    href={new URL("fonts/atkinson-bold.woff", siteWithBase)}
+    as="font"
+    type="font/woff"
+    crossorigin
+/>
 
 <!-- Canonical URL -->
-<link rel="canonical" href={canonicalURL} />
+<link rel="canonical" href={siteWithBase} />
 
 <!-- Primary Meta Tags -->
 <title>{title}</title>
@@ -46,14 +64,14 @@ const { title, description, image = FallbackImage } = Astro.props;
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
-<meta property="og:url" content={String(canonicalURL)} />
+<meta property="og:url" content={String(siteWithBase)} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={new URL(image.src, Astro.site)} />
+<meta property="og:image" content={new URL(image.src, siteWithBase)} />
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={String(canonicalURL)} />
+<meta property="twitter:url" content={String(siteWithBase)} />
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={new URL(image.src, Astro.site)} />
+<meta property="twitter:image" content={new URL(image.src, siteWithBase)} />

@@ -55,14 +55,6 @@ const {
     viewAllLabel = "View all projects",
 } = Astro.props as Props;
 
-const siteWithBase = new URL(
-    import.meta.env.BASE_URL || "/",
-    new URL(String(Astro.site)).origin,
-).toString();
-const resolvedViewAllHref = viewAllHref
-    ? new URL(viewAllHref.replace(/^\/+/, ""), siteWithBase).pathname
-    : undefined;
-
 function getProjectData(item: RawProject) {
     return item && (item as any).data ? (item as any).data : item;
 }
@@ -110,23 +102,6 @@ const visibleItems = typeof limit === "number" ? items.slice(0, limit) : items;
                     })
                 }
             </div>
-
-            {
-                Astro.slots.default ? (
-                    <div class="lg:col-span-2 mt-8 flex justify-end">
-                        <slot />
-                    </div>
-                ) : viewAllHref ? (
-                    <div class="lg:col-span-2 mt-8 flex justify-end">
-                        <a
-                            class="text-xs 2xl:text-lg text-base-900 hover:text-base-500 font-bold uppercase"
-                            href={resolvedViewAllHref}
-                        >
-                            {viewAllLabel}
-                        </a>
-                    </div>
-                ) : null
-            }
         </div>
     </div>
 </section>

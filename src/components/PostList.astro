@@ -53,14 +53,6 @@ const {
     viewAllLabel = "View all posts",
 } = Astro.props as Props;
 
-const siteWithBase = new URL(
-    import.meta.env.BASE_URL || "/",
-    new URL(String(Astro.site)).origin,
-).toString();
-const resolvedViewAllHref = viewAllHref
-    ? new URL(viewAllHref.replace(/^\/+/, ""), siteWithBase).pathname
-    : undefined;
-
 function getPostData(item: RawPost) {
     return item && (item as any).data ? (item as any).data : item;
 }
@@ -70,6 +62,11 @@ function isExternal(href?: string) {
 }
 
 const visiblePosts = typeof limit === "number" ? posts.slice(0, limit) : posts;
+
+const baseUrl =
+    !import.meta.env.BASE_URL || import.meta.env.BASE_URL === "/"
+        ? ""
+        : import.meta.env.BASE_URL;
 ---
 
 <section class="max-w-[90rem] mx-auto px-8">
@@ -93,7 +90,7 @@ const visiblePosts = typeof limit === "number" ? posts.slice(0, limit) : posts;
                         const p = getPostData(post) || {};
                         const id = (post as any).id;
                         const href = id
-                            ? `/blog/${id}/`
+                            ? `${baseUrl}/blog/${id}`
                             : (p.href ?? undefined);
                         const rawDate = p.pubDate ?? null;
                         const pubDate = rawDate
@@ -116,23 +113,6 @@ const visiblePosts = typeof limit === "number" ? posts.slice(0, limit) : posts;
                     })
                 }
             </div>
-
-            {
-                Astro.slots.default ? (
-                    <div class="lg:col-span-2 mt-8 flex justify-end">
-                        <slot />
-                    </div>
-                ) : viewAllHref ? (
-                    <div class="lg:col-span-2 mt-8 flex justify-end">
-                        <a
-                            class="text-xs 2xl:text-lg text-base-900 hover:text-base-500 font-bold uppercase"
-                            href={resolvedViewAllHref}
-                        >
-                            {viewAllLabel}
-                        </a>
-                    </div>
-                ) : null
-            }
         </div>
     </div>
 </section>
