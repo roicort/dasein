@@ -1,5 +1,5 @@
 ---
-import { SITE_TITLE } from "../consts";
+import { SITE_TITLE, SITE_OCCUPATION, SITE_BIO } from "../consts";
 ---
 
 <section>
@@ -27,20 +27,11 @@ import { SITE_TITLE } from "../consts";
                 <h1
                     class="text-xs 2xl:text-lg text-base-900 font-bold uppercase"
                 >
-                    Philosopher
+                    {SITE_OCCUPATION}
                 </h1>
             </div>
             <div class="lg:col-span-2">
-                <p class="text-sm 2xl:text-xl text-base-600">
-                    In German, Dasein is the vernacular term for "existence". It
-                    is derived from da-sein, which literally means "being-there"
-                    or "there-being". In a philosophical context, it was first
-                    used by Leibniz and Wolff in the 17th century, as well as by
-                    Kant and Hegel in the 18th and 19th; however, Heidegger's
-                    later association of the word with human existence was
-                    uncommon and not of special philosophical significance
-                    during this period.
-                </p>
+                <p class="text-sm 2xl:text-xl text-base-600">{SITE_BIO}</p>
             </div>
         </div>
     </div>

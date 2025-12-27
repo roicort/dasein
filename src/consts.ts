@@ -1,5 +1,9 @@
-// Place any global data in this file.
-// You can import this data from anywhere in your site by using the `import` keyword.
+import siteConfig from "./site.json";
 
-export const SITE_TITLE = "Dasein";
-export const SITE_DESCRIPTION = "Welcome to my website!";
+export const SITE_TITLE = siteConfig.title ?? "Dasein";
+export const SITE_DESCRIPTION =
+  siteConfig.description ?? "Welcome to my website!";
+export const SITE_OCCUPATION = siteConfig.occupation ?? "Philosopher";
+export const SITE_BIO = siteConfig.bio ?? "404 Bio Not Found";
+
+export default siteConfig;
