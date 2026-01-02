@@ -3,13 +3,13 @@
   items:
     - title: "PhD in Philosophy"
       description: "Focused on Existentialism and its impact on contemporary thought."
-      datetime: "2020–2022"
+      datetime: "2020 – 2022"
     - title: "Bachelor's in Philosophy"
       description: "Studied philosophy with an emphasis on critical thinking and ethical reasoning."
-      datetime: "2016–2020"
+      datetime: "2016 – 2020"
     - title: "Diploma in Philosophy"
       description: "Learned existentialism, phenomenology, and the history of philosophy."
-      datetime: "2014–2016"
+      datetime: "2014 – 2016"
 
 - id: "teaching"
   heading: "Teaching"

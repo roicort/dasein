@@ -4,7 +4,7 @@ import siteConfig from "../site.json";
 
 <section>
     <div
-        class="max-w-[90rem] mx-auto px-8 pt-8 flex flex-col justify-between h-dvh"
+        class="max-w-[90rem] mx-auto px-8 pt-8 flex flex-col justify-between min-h-[95dvh]"
     >
         <!-- Render the default slot content -->
         <slot />
@@ -40,14 +40,6 @@ import siteConfig from "../site.json";
 </section>
 
 <style>
-    .h-dvh {
-        min-height: 100dvh;
-    }
-
-    h1 {
-        margin: 0;
-    }
-
     .grid {
         max-width: 100%;
     }
