@@ -13,6 +13,8 @@ function formatTime(date: Date): string {
 }
 
 const initialTime = formatTime(now);
+
+import siteConfig from "../site.json";
 ---
 
 <footer>
@@ -34,8 +36,9 @@ const initialTime = formatTime(now);
                 <p
                     class="text-xs 2xl:text-lg text-base-900 font-bold uppercase"
                 >
-                    © Copyright <span id="year">{currentYear}</span>. All rights
-                    reserved.
+                    {siteConfig.FOOTER} © Copyright <span id="year"
+                        >{currentYear}</span
+                    >. All rights reserved.
                 </p>
             </div>
         </div>
