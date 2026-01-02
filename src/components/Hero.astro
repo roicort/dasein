@@ -1,5 +1,5 @@
 ---
-import { SITE_TITLE, SITE_OCCUPATION, SITE_BIO } from "../consts";
+import siteConfig from "../site.json";
 ---
 
 <section>
@@ -16,7 +16,7 @@ import { SITE_TITLE, SITE_OCCUPATION, SITE_BIO } from "../consts";
                 class="hero-letters text-[10vw] md:text-[10rem] lg:text-[10rem] leading-[0.85] font-extrabold text-base-900 uppercase"
                 aria-hidden="true"
             >
-                {SITE_TITLE}
+                {siteConfig.TITLE}
             </div>
         </div>
 
@@ -27,11 +27,13 @@ import { SITE_TITLE, SITE_OCCUPATION, SITE_BIO } from "../consts";
                 <h1
                     class="text-xs 2xl:text-lg text-base-900 font-bold uppercase"
                 >
-                    {SITE_OCCUPATION}
+                    {siteConfig.OCCUPATION}
                 </h1>
             </div>
             <div class="lg:col-span-2">
-                <p class="text-sm 2xl:text-xl text-base-600">{SITE_BIO}</p>
+                <p class="text-sm 2xl:text-xl text-base-600">
+                    {siteConfig.BIO}
+                </p>
             </div>
         </div>
     </div>

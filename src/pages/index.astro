@@ -9,7 +9,7 @@ import ProjectList from "../components/ProjectList.astro";
 import PostList from "../components/PostList.astro";
 
 import { getCollection } from "astro:content";
-import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
+import siteConfig from "../site.json";
 
 const posts = (await getCollection("blog")).sort(
     (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
@@ -27,7 +27,10 @@ const socials = (await getCollection("socials" as any)) as any[];
 <!doctype html>
 <html lang="en">
     <head>
-        <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+        <BaseHead
+            title={siteConfig.TITLE}
+            description={siteConfig.DESCRIPTION}
+        />
     </head>
     <body>
         <Header />

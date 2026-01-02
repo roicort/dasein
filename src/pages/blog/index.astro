@@ -4,7 +4,7 @@ import BaseHead from "../../components/BaseHead.astro";
 import Footer from "../../components/Footer.astro";
 import Header from "../../components/Header.astro";
 import PostCard from "../../components/PostCard.astro";
-import { SITE_DESCRIPTION, SITE_TITLE } from "../../consts";
+import siteConfig from "../../site.json";
 
 const posts = (await getCollection("blog")).sort(
     (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
@@ -19,15 +19,24 @@ const baseUrl =
 <!doctype html>
 <html lang="en">
     <head>
-        <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-        <style><!-- styles moved to PostCard component --></style>
+        <BaseHead
+            title={siteConfig.TITLE}
+            description={siteConfig.DESCRIPTION}
+        />
+        <style>
+            /* styles moved to PostCard component */
+        </style>
     </head>
     <body class="min-h-screen flex flex-col">
         <Header />
         <main class="flex-1 flex">
             <section class="flex flex-1">
-                <div class="max-w-[90rem] mx-auto w-full flex-1 min-h-full py-12 px-8 flex flex-col justify-center">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-y-12 gap-x-8 w-full">
+                <div
+                    class="max-w-[90rem] mx-auto w-full flex-1 min-h-full py-12 px-8 flex flex-col justify-center"
+                >
+                    <div
+                        class="grid grid-cols-1 md:grid-cols-2 gap-y-12 gap-x-8 w-full"
+                    >
                         {
                             posts.map((post) => (
                                 <PostCard

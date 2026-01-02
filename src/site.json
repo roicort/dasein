@@ -1,6 +1,6 @@
 {
-  "title": "Dasein",
-  "description": "Welcome to my website!",
-  "occupation": "Philosopher",
-  "bio": "In German, Dasein is the vernacular term for \"existence\". It is derived from da-sein, which literally means \"being-there\" or \"there-being\". "
+  "TITLE": "Dasein",
+  "DESCRIPTION": "Welcome to my website!",
+  "OCCUPATION": "Philosopher",
+  "BIO": "In German, Dasein is the vernacular term for \"existence\". It is derived from da-sein, which literally means \"being-there\" or \"there-being\". "
 }

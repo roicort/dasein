@@ -4,7 +4,7 @@ import BaseHead from "../components/BaseHead.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 import PostCard from "../components/PostCard.astro";
-import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
+import siteConfig from "../site.json";
 
 const projects = ((await getCollection("projects" as any)) as any[]).sort(
     (a, b) => a.data.title.localeCompare(b.data.title),
@@ -15,17 +15,23 @@ const projects = ((await getCollection("projects" as any)) as any[]).sort(
 <html lang="en">
     <head>
         <BaseHead
-            title={`Projects • ${SITE_TITLE}`}
-            description={SITE_DESCRIPTION}
+            title={`Projects • ${siteConfig.TITLE}`}
+            description={siteConfig.DESCRIPTION}
         />
-        <style><!-- styles moved to PostCard component --></style>
+        <style>
+            /* styles moved to PostCard component */
+        </style>
     </head>
     <body class="min-h-screen flex flex-col">
         <Header />
         <main class="flex-1 flex">
             <section class="flex flex-1 items-center">
-                <div class="max-w-[90rem] mx-auto w-full flex-1 min-h-full py-12 px-8 flex flex-col items-center justify-center">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-y-12 gap-x-8 w-full place-items-center">
+                <div
+                    class="max-w-[90rem] mx-auto w-full flex-1 min-h-full py-12 px-8 flex flex-col items-center justify-center"
+                >
+                    <div
+                        class="grid grid-cols-1 md:grid-cols-2 gap-y-12 gap-x-8 w-full place-items-center"
+                    >
                         {
                             projects.map((project) => {
                                 const p = project.data || {};
